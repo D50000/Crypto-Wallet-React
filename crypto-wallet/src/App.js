@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <span>Crypto Wallet</span>
+        <h1>Crypto Wallet</h1>
         <Wallet></Wallet>
       </header>
     </div>
