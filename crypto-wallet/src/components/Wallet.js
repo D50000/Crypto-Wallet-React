@@ -17,7 +17,7 @@ export default function Wallet() {
 
   const searchInput = (e) => {
     // TODO: debounce
-    console.log(e.target.value);
+    console.log(e);
     setSearchSymbol(e.target.value);
     if (searchSymbol === "") {
       setFilteredResults(symbolList);
@@ -30,15 +30,23 @@ export default function Wallet() {
     }
   };
 
+  const selectRow = (symbol) => {
+    console.log(symbol);
+  };
+
   return (
     <div>
       <span>wallet here</span>
       <ButtonBar></ButtonBar>
       <div>
-        <input onChange={searchInput} placeholder="Search..."></input>
+        <input onChange={(e) => searchInput(e)} placeholder="Search..."></input>
       </div>
       {filteredResults.map((symbol) => (
-        <div className="container" key={symbol.symbol}>
+        <div
+          className="container"
+          key={symbol.symbol}
+          onClick={(e) => selectRow(symbol.symbol)}
+        >
           <div>{symbol.symbol}</div>
           <div>{symbol.price}</div>
         </div>
