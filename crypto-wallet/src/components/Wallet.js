@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import ButtonBar from "./button-bar";
+
 export default function Wallet() {
   const [symbolList, setSymbolList] = useState([]);
   const [searchSymbol, setSearchSymbol] = useState("");
@@ -31,6 +33,7 @@ export default function Wallet() {
   return (
     <div>
       <span>wallet here</span>
+      <ButtonBar></ButtonBar>
       <div>
         <input onChange={searchInput} placeholder="Search..."></input>
       </div>
