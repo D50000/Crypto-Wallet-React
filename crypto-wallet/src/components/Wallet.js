@@ -9,7 +9,9 @@ export default function Wallet() {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
       res.json().then((data) => {
         setSymbolList(data);
-        setFilteredResults(data);
+        const usdRegex = new RegExp(`usdt`, "i");
+        const usdPairs = data.filter((pair) => pair.symbol.match(usdRegex));
+        setFilteredResults(usdPairs);
       })
     );
   }, []); // Give [] for the deps to fire once.
