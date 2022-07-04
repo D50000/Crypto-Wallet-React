@@ -4,7 +4,6 @@ import ButtonBar from "./button-bar";
 
 export default function Wallet() {
   const [symbolList, setSymbolList] = useState([]);
-  const [searchSymbol, setSearchSymbol] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   useEffect(() => {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
@@ -17,13 +16,13 @@ export default function Wallet() {
 
   const searchInput = (e) => {
     // TODO: debounce
-    console.log(e);
-    setSearchSymbol(e.target.value);
-    if (searchSymbol === "") {
+    const input = e.target.value;
+    console.log(input);
+    if (input === "") {
       setFilteredResults(symbolList);
     } else {
       const result = symbolList.filter((pair) => {
-        const regex = new RegExp(`${searchSymbol}`, "i");
+        const regex = new RegExp(`${input}`, "i");
         return pair.symbol.match(regex);
       });
       setFilteredResults(result);
