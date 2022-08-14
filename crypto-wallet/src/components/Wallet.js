@@ -2,6 +2,21 @@ import { useState, useEffect } from "react";
 
 import ButtonBar from "./button-bar";
 
+import styled from "styled-components";
+
+const SymbolFeatureContainer = styled.div`
+  width: 50vw;
+
+  .symbolDiv {
+    display: flex;
+    justify-content: space-between;
+
+    > .name {
+      width: 35%;
+    }
+  }
+`;
+
 export default function Wallet() {
   const [symbolList, setSymbolList] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
@@ -46,8 +61,7 @@ export default function Wallet() {
   };
 
   return (
-    <div>
-      <span>wallet here</span>
+    <SymbolFeatureContainer>
       <ButtonBar></ButtonBar>
       <div>
         <input
@@ -57,14 +71,14 @@ export default function Wallet() {
       </div>
       {filteredResults.map((symbol) => (
         <div
-          className="container"
+          className="symbolDiv"
           key={symbol.symbol}
           onClick={(e) => selectRow(symbol.symbol)}
         >
-          <div>{symbol.symbol}</div>
-          <div>{symbol.price}</div>
+          <div className="name">{symbol.symbol}</div>
+          <div className="price">{symbol.price}</div>
         </div>
       ))}
-    </div>
+    </SymbolFeatureContainer>
   );
 }
