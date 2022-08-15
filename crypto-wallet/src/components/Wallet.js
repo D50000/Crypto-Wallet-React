@@ -75,7 +75,9 @@ export default function Wallet() {
           key={symbol.symbol}
           onClick={(e) => selectRow(symbol.symbol)}
         >
-          <div className="name">{symbol.symbol}</div>
+          <input type="checkbox" />
+          <div className="name">{symbol.symbol.replace("USDT", "")}</div>
+          <input type="number" step="any" />
           <div className="price">{symbol.price}</div>
         </div>
       ))}
