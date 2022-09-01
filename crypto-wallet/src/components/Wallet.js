@@ -25,7 +25,11 @@ export default function Wallet() {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
       res.json().then((data) => {
         setSymbolList(data);
-        const usdPairs = filterThUsdt(data);
+        const usdPairs = filterTheUsdt(data).map((pair, index) => ({
+          ...pair,
+          id: index,
+          select: false,
+        }));
         setFilteredResults(usdPairs);
       })
     );
@@ -36,7 +40,7 @@ export default function Wallet() {
    * {4} matches the previous token exactly 4 times from the end.
    * example: *****usdt => capital ignore.
    */
-  const filterThUsdt = (list) => {
+  const filterTheUsdt = (list) => {
     const usdRegex = new RegExp(`(USDT)$`, "i");
     return list.filter((pair) => pair.symbol.match(usdRegex));
   };
@@ -77,8 +81,17 @@ export default function Wallet() {
         >
           <input type="checkbox" />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-          <input type="number" step="any" />
-          <div className="price">{symbol.price}</div>
+          {/* {() => {
+            if (symbol.select) {
+              console.log(symbol.select);
+              return (
+                <>
+                  <input type="number" step="any" />
+                  <div className="price">{symbol.price}</div>
+                </>
+              );
+            }
+          }} */}
         </div>
       ))}
     </SymbolFeatureContainer>
