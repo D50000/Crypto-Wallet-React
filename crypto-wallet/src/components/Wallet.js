@@ -81,17 +81,12 @@ export default function Wallet() {
         >
           <input type="checkbox" />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-          {/* {() => {
-            if (symbol.select) {
-              console.log(symbol.select);
-              return (
-                <>
-                  <input type="number" step="any" />
-                  <div className="price">{symbol.price}</div>
-                </>
-              );
-            }
-          }} */}
+          {symbol.select ? (
+            <>
+              <input type="number" step="any" />
+              <div className="price">{symbol.price}</div>
+            </>
+          ) : null}
         </div>
       ))}
     </SymbolFeatureContainer>
