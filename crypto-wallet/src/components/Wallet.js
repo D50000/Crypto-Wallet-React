@@ -50,8 +50,9 @@ export default function Wallet() {
     const input = e.target.value;
     console.log(input);
     if (input === "") {
-      setFilteredResults(symbolList);
+      return;
     } else {
+      // TODO: filter input issue
       const result = symbolList.filter((pair) => {
         const regex = new RegExp(`${input}`, "i");
         return pair.symbol.match(regex);
@@ -60,8 +61,23 @@ export default function Wallet() {
     }
   };
 
-  const selectRow = (symbol) => {
-    console.log(symbol);
+  const selectRow = (index) => {
+    let updatePair = [...filteredResults];
+    updatePair[index].select = !updatePair[index].select;
+    console.log(filteredResults);
+    setFilteredResults(updatePair);
+  };
+
+  const togglePairInfo = (symbol) => {
+    if (symbol.select) {
+      return (
+        <>
+          <input type="number" step="any" />
+          <div className="price">{symbol.price}</div>
+        </>
+      );
+    }
+    return null;
   };
 
   return (
@@ -73,20 +89,15 @@ export default function Wallet() {
           placeholder="Search..."
         ></input>
       </div>
-      {filteredResults.map((symbol) => (
+      {filteredResults.map((symbol, index) => (
         <div
           className="symbolDiv"
           key={symbol.symbol}
-          onClick={(e) => selectRow(symbol.symbol)}
+          onClick={(e) => selectRow(index)}
         >
           <input type="checkbox" />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-          {symbol.select ? (
-            <>
-              <input type="number" step="any" />
-              <div className="price">{symbol.price}</div>
-            </>
-          ) : null}
+          {togglePairInfo(symbol)}
         </div>
       ))}
     </SymbolFeatureContainer>
