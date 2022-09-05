@@ -61,6 +61,12 @@ export default function Wallet() {
     }
   };
 
+  /**
+   * Use spread method to shallow copy the object.
+   * And it will trigger react detect object's update.
+   * 
+   * ps: If just specific change the some key/value it will still be the same object.
+   */
   const selectRow = (index) => {
     let updatePair = [...filteredResults];
     updatePair[index].select = !updatePair[index].select;
@@ -71,6 +77,7 @@ export default function Wallet() {
   const togglePairInfo = (symbol) => {
     if (symbol.select) {
       return (
+        // <> Ghost template.
         <>
           <input type="number" step="any" />
           <div className="price">{symbol.price}</div>
@@ -97,7 +104,8 @@ export default function Wallet() {
         >
           <input type="checkbox" />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-          {togglePairInfo(symbol)}
+          {/* If else return html */}
+          {togglePairInfo(symbol)} 
         </div>
       ))}
     </SymbolFeatureContainer>
