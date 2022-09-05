@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ButtonBar from "./button-bar";
 
 import styled from "styled-components";
+import { DebounceInput } from "react-debounce-input";
 
 const SymbolFeatureContainer = styled.div`
   width: 50vw;
@@ -24,12 +25,13 @@ export default function Wallet() {
   useEffect(() => {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
       res.json().then((data) => {
-        setSymbolList(data);
         const usdPairs = filterTheUsdt(data).map((pair, index) => ({
           ...pair,
           id: index,
           select: false,
+          symbol: pair.symbol.replace("USDT", ""),
         }));
+        setSymbolList(usdPairs);
         setFilteredResults(usdPairs);
       })
     );
@@ -45,14 +47,16 @@ export default function Wallet() {
     return list.filter((pair) => pair.symbol.match(usdRegex));
   };
 
+  /**
+   * Debounce search input bar.
+   * Handle the empty string input and reset the list.
+   */
   const searchHandler = (e) => {
-    // TODO: debounce
     const input = e.target.value;
     console.log(input);
     if (input === "") {
-      return;
+      setFilteredResults(symbolList);
     } else {
-      // TODO: filter input issue
       const result = symbolList.filter((pair) => {
         const regex = new RegExp(`${input}`, "i");
         return pair.symbol.match(regex);
@@ -64,7 +68,7 @@ export default function Wallet() {
   /**
    * Use spread method to shallow copy the object.
    * And it will trigger react detect object's update.
-   * 
+   *
    * ps: If just specific change the some key/value it will still be the same object.
    */
   const selectRow = (index) => {
@@ -91,10 +95,16 @@ export default function Wallet() {
     <SymbolFeatureContainer>
       <ButtonBar></ButtonBar>
       <div>
-        <input
+        {/* <input
           onChange={(e) => searchHandler(e)}
           placeholder="Search..."
-        ></input>
+        ></input> */}
+        <DebounceInput
+          minLength={2}
+          debounceTimeout={300}
+          onChange={(e) => searchHandler(e)}
+          placeholder="Search..."
+        />
       </div>
       {filteredResults.map((symbol, index) => (
         <div
@@ -105,7 +115,7 @@ export default function Wallet() {
           <input type="checkbox" />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
           {/* If else return html */}
-          {togglePairInfo(symbol)} 
+          {togglePairInfo(symbol)}
         </div>
       ))}
     </SymbolFeatureContainer>
