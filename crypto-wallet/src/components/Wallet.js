@@ -25,6 +25,7 @@ export default function Wallet() {
   useEffect(() => {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
       res.json().then((data) => {
+        // TODO: Pase and filter exclude usdt pairs
         const usdPairs = filterTheUsdt(data).map((pair, index) => ({
           ...pair,
           id: index,
