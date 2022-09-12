@@ -25,12 +25,12 @@ export default function Wallet() {
   useEffect(() => {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
       res.json().then((data) => {
-        // TODO: Pase and filter exclude usdt pairs
         const usdPairs = filterTheUsdt(data).map((pair, index) => ({
           ...pair,
           id: index,
           select: false,
           symbol: pair.symbol.replace("USDT", ""),
+          amount: 0,
         }));
         setSymbolList(usdPairs);
         setFilteredResults(usdPairs);
@@ -96,12 +96,8 @@ export default function Wallet() {
     <SymbolFeatureContainer>
       <ButtonBar></ButtonBar>
       <div>
-        {/* <input
-          onChange={(e) => searchHandler(e)}
-          placeholder="Search..."
-        ></input> */}
         <DebounceInput
-          minLength={2}
+          minLength={1}
           debounceTimeout={300}
           onChange={(e) => searchHandler(e)}
           placeholder="Search..."
@@ -111,6 +107,7 @@ export default function Wallet() {
         <div
           className="symbolDiv"
           key={symbol.symbol}
+          //TODO: Fix, just trigger by tick box not whole row.
           onClick={(e) => selectRow(index)}
         >
           <input type="checkbox" />
