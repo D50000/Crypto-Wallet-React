@@ -104,13 +104,8 @@ export default function Wallet() {
         />
       </div>
       {filteredResults.map((symbol, index) => (
-        <div
-          className="symbolDiv"
-          key={symbol.symbol}
-          //TODO: Fix, just trigger by tick box not whole row.
-          onClick={(e) => selectRow(index)}
-        >
-          <input type="checkbox" />
+        <div className="symbolDiv" key={symbol.symbol}>
+          <input type="checkbox" onClick={(e) => selectRow(index)} />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
           {/* If else return html */}
           {togglePairInfo(symbol)}
