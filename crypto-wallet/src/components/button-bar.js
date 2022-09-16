@@ -18,6 +18,7 @@ const cleanWallet = () => {
 
 const refreshData = () => {
   console.log("Refresh");
+  window.location.reload(false);
 };
 
 export default function ButtonBar() {
