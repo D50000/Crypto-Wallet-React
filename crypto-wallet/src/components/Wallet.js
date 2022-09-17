@@ -75,17 +75,14 @@ export default function Wallet() {
   const selectRow = (index) => {
     let updatePair = [...filteredResults];
     updatePair[index].select = !updatePair[index].select;
-    console.log(filteredResults);
     setFilteredResults(updatePair);
   };
 
   const setAmount = (e, index) => {
     const inputAmount = e.target.value;
-    console.log(inputAmount);
     let updatePair = [...filteredResults];
     updatePair[index].amount = inputAmount;
     setFilteredResults(updatePair);
-    console.log(filteredResults);
   };
 
   const togglePairInfo = (symbol, index) => {
@@ -107,7 +104,7 @@ export default function Wallet() {
 
   return (
     <SymbolFeatureContainer>
-      <ButtonBar></ButtonBar>
+      <ButtonBar filteredResults={filteredResults}></ButtonBar>
       <div>
         <DebounceInput
           minLength={1}

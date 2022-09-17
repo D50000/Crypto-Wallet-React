@@ -6,9 +6,9 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-const saveWallet = () => {
+const saveWallet = (filteredResults) => {
   console.log("Save");
-  localStorage.setItem("walletSnapshot", {});
+  localStorage.setItem("walletSnapshot", JSON.stringify(filteredResults));
 };
 
 const cleanWallet = () => {
@@ -21,10 +21,10 @@ const refreshData = () => {
   window.location.reload(false);
 };
 
-export default function ButtonBar() {
+export default function ButtonBar(props) {
   return (
     <ButtonContainer>
-      <button onClick={(e) => saveWallet()}>Save</button>
+      <button onClick={(e) => saveWallet(props.filteredResults)}>Save</button>
       <button onClick={(e) => cleanWallet()}>Clear</button>
       <button onClick={(e) => refreshData()}>Refresh</button>
     </ButtonContainer>
