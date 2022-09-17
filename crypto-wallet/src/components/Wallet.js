@@ -79,12 +79,25 @@ export default function Wallet() {
     setFilteredResults(updatePair);
   };
 
-  const togglePairInfo = (symbol) => {
+  const setAmount = (e, index) => {
+    const inputAmount = e.target.value;
+    console.log(inputAmount);
+    let updatePair = [...filteredResults];
+    updatePair[index].amount = inputAmount;
+    setFilteredResults(updatePair);
+    console.log(filteredResults);
+  };
+
+  const togglePairInfo = (symbol, index) => {
     if (symbol.select) {
       return (
         // <> Ghost template.
         <>
-          <input type="number" step="any" />
+          <input
+            type="number"
+            step="any"
+            onChange={(e) => setAmount(e, index)}
+          />
           <div className="price">{symbol.price}</div>
         </>
       );
@@ -108,7 +121,7 @@ export default function Wallet() {
           <input type="checkbox" onClick={(e) => selectRow(index)} />
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
           {/* If else return html */}
-          {togglePairInfo(symbol)}
+          {togglePairInfo(symbol, index)}
         </div>
       ))}
     </SymbolFeatureContainer>
