@@ -8,10 +8,9 @@ This project is create by `Create React App`.
 - react: 18.2.0
 
 #### TODO:
+
 - trim usdt value 0.01 format
-- implement save button
-- implement clear button
-- implement reset button
+- loading save data
 - style library
 - chart library
 - RWD
