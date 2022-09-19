@@ -85,6 +85,10 @@ export default function Wallet() {
     setFilteredResults(updatePair);
   };
 
+  const priceFormat = (x) => {
+    return Number.parseFloat(x).toFixed(2);
+  };
+
   const togglePairInfo = (symbol, index) => {
     if (symbol.select) {
       return (
@@ -95,7 +99,7 @@ export default function Wallet() {
             step="any"
             onChange={(e) => setAmount(e, index)}
           />
-          <div className="price">{symbol.price}</div>
+          <div className="price">{priceFormat(symbol.price)}</div>
         </>
       );
     }

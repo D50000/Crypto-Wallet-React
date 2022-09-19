@@ -9,7 +9,6 @@ This project is create by `Create React App`.
 
 #### TODO:
 
-- trim usdt value 0.01 format
 - loading save data
 - style library
 - chart library
