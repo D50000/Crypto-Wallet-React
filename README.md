@@ -11,5 +11,5 @@ This project is create by `Create React App`.
 
 - loading save data
 - style library
-- chart library
+- chart library: https://git.hust.cc/echarts-for-react/
 - RWD
