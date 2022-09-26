@@ -10,6 +10,6 @@ This project is create by `Create React App`.
 #### TODO:
 
 - loading save data
-- style library
+- style library: npm install @mui/base
 - chart library: https://git.hust.cc/echarts-for-react/
 - RWD
