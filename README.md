@@ -11,5 +11,9 @@ This project is create by `Create React App`.
 
 - loading save data
 - style library: npm install @mui/base
+  - ~~buttons bar~~
+  - checkbox
+  - search bar
+  - symbols layout
 - chart library: https://git.hust.cc/echarts-for-react/
 - RWD
