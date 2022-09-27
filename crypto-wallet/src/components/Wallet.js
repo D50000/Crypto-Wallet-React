@@ -4,6 +4,7 @@ import ButtonBar from "./button-bar";
 
 import styled from "styled-components";
 import { DebounceInput } from "react-debounce-input";
+import Checkbox from "@mui/material/Checkbox";
 
 const SymbolFeatureContainer = styled.div`
   width: 50vw;
@@ -120,6 +121,8 @@ export default function Wallet() {
       {filteredResults.map((symbol, index) => (
         <div className="symbolDiv" key={symbol.symbol}>
           <input type="checkbox" onClick={(e) => selectRow(index)} />
+          {/* TODO: React material ui's 'Checkbox' is laggy */}
+          {/* <Checkbox defaultChecked onClick={(e) => selectRow(index)} /> */}
           <div className="name">{symbol.symbol.replace("USDT", "")}</div>
           {/* If else return html */}
           {togglePairInfo(symbol, index)}

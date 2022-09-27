@@ -25,10 +25,18 @@ const refreshData = () => {
 export default function ButtonBar(props) {
   return (
     <ButtonContainer>
-      <button onClick={(e) => saveWallet(props.filteredResults)}>Save</button>
-      <button onClick={(e) => cleanWallet()}>Clear</button>
-      <button onClick={(e) => refreshData()}>Refresh</button>
-      <Button variant="contained">Hello World</Button>
+      <Button
+        variant="contained"
+        onClick={(e) => saveWallet(props.filteredResults)}
+      >
+        Save
+      </Button>
+      <Button variant="contained" onClick={(e) => cleanWallet()}>
+        Clear
+      </Button>
+      <Button variant="contained" onClick={(e) => refreshData()}>
+        Refresh
+      </Button>
     </ButtonContainer>
   );
 }
