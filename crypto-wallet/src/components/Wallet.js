@@ -5,17 +5,32 @@ import ButtonBar from "./button-bar";
 import styled from "styled-components";
 import { DebounceInput } from "react-debounce-input";
 import Checkbox from "@mui/material/Checkbox";
+import TextField from "@mui/material/TextField";
 
 const SymbolFeatureContainer = styled.div`
   width: 50vw;
 
-  .symbolDiv {
-    display: flex;
-    justify-content: space-between;
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 
-    > .name {
-      width: 35%;
+    li.symbol-table {
+      display: flex;
+      justify-content: space-between;
+      border: solid 1px;
+      border-radius: 5px;
+      height: 45px;
+
+      > .name {
+        width: 35%;
+      }
     }
+  }
+
+  .search-bar {
+    width: 100%;
+    margin: 10px 0;
   }
 `;
 
@@ -109,25 +124,33 @@ export default function Wallet() {
 
   return (
     <SymbolFeatureContainer>
-      <ButtonBar filteredResults={filteredResults}></ButtonBar>
-      <div>
-        <DebounceInput
+      <TextField
+        id="standard-search"
+        label="Search for Crypto currencies ..."
+        type="search"
+        variant="standard"
+        className="search-bar"
+        onChange={(e) => searchHandler(e)}
+      />
+      {/* <DebounceInput
           minLength={1}
           debounceTimeout={300}
           onChange={(e) => searchHandler(e)}
           placeholder="Search..."
-        />
-      </div>
-      {filteredResults.map((symbol, index) => (
-        <div className="symbolDiv" key={symbol.symbol}>
-          <input type="checkbox" onClick={(e) => selectRow(index)} />
-          {/* TODO: React material ui's 'Checkbox' is laggy */}
-          {/* <Checkbox defaultChecked onClick={(e) => selectRow(index)} /> */}
-          <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-          {/* If else return html */}
-          {togglePairInfo(symbol, index)}
-        </div>
-      ))}
+        /> */}
+      <ButtonBar filteredResults={filteredResults}></ButtonBar>
+      <ul>
+        {filteredResults.map((symbol, index) => (
+          <li className="symbol-table" key={symbol.symbol}>
+            <input type="checkbox" onClick={(e) => selectRow(index)} />
+            {/* TODO: React material ui's 'Checkbox' is laggy */}
+            {/* <Checkbox defaultChecked onClick={(e) => selectRow(index)} /> */}
+            <div className="name">{symbol.symbol.replace("USDT", "")}</div>
+            {/* If else return html */}
+            {togglePairInfo(symbol, index)}
+          </li>
+        ))}
+      </ul>
     </SymbolFeatureContainer>
   );
 }

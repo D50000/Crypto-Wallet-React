@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 
 const ButtonContainer = styled.div`
   width: 50vw;
+  margin: 0 0 10px 0;
   display: flex;
   justify-content: space-between;
 `;
