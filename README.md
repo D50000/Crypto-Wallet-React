@@ -13,7 +13,7 @@ This project is create by `Create React App`.
 - style library: npm install @mui/base
   - ~~buttons bar~~
   - checkbox
-  - search bar
-  - symbols layout
+  - ~~search bar~~
+  - symbols layout ui/li
 - chart library: https://git.hust.cc/echarts-for-react/
 - RWD
