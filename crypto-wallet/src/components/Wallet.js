@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import ButtonBar from "./button-bar";
 
 import styled from "styled-components";
-import { DebounceInput } from "react-debounce-input";
-import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 
 const SymbolFeatureContainer = styled.div`
@@ -132,19 +130,11 @@ export default function Wallet() {
         className="search-bar"
         onChange={(e) => searchHandler(e)}
       />
-      {/* <DebounceInput
-          minLength={1}
-          debounceTimeout={300}
-          onChange={(e) => searchHandler(e)}
-          placeholder="Search..."
-        /> */}
       <ButtonBar filteredResults={filteredResults}></ButtonBar>
       <ul>
         {filteredResults.map((symbol, index) => (
           <li className="symbol-table" key={symbol.symbol}>
             <input type="checkbox" onClick={(e) => selectRow(index)} />
-            {/* TODO: React material ui's 'Checkbox' is laggy */}
-            {/* <Checkbox defaultChecked onClick={(e) => selectRow(index)} /> */}
             <div className="name">{symbol.symbol.replace("USDT", "")}</div>
             {/* If else return html */}
             {togglePairInfo(symbol, index)}
