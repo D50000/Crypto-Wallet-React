@@ -6,6 +6,10 @@ const ButtonContainer = styled.div`
   margin: 0 0 10px 0;
   display: flex;
   justify-content: space-between;
+
+  Button {
+    width: 100px;
+  }
 `;
 
 const saveWallet = (filteredResults) => {

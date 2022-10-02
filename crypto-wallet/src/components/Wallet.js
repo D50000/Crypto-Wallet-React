@@ -13,13 +13,13 @@ const SymbolFeatureContainer = styled.div`
   ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: 15px;
 
     li.symbol-table {
       display: flex;
       justify-content: space-between;
       border: solid 1px;
-      border-radius: 5px;
+      border-radius: 20px;
       height: 45px;
 
       > .name {
