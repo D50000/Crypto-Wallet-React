@@ -6,7 +6,7 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 
 const SymbolFeatureContainer = styled.div`
-  width: 50vw;
+  width: 65vw;
 
   ul {
     list-style-type: none;
@@ -15,13 +15,20 @@ const SymbolFeatureContainer = styled.div`
 
     li.symbol-table {
       display: flex;
-      justify-content: space-between;
+      height: 45px;
+      padding: 0px 0px 0px 15px;
       border: solid 1px;
       border-radius: 20px;
-      height: 45px;
+      align-items: center;
 
       > .name {
         width: 35%;
+      }
+
+      > div.toggle-box {
+        display: flex;
+        width: 55%;
+        justify-content: space-between;
       }
     }
   }
@@ -100,21 +107,22 @@ export default function Wallet() {
   };
 
   const priceFormat = (x) => {
-    return Number.parseFloat(x).toFixed(2);
+    return Number.parseFloat(x).toFixed(2) + " USDT";
   };
 
   const togglePairInfo = (symbol, index) => {
     if (symbol.select) {
       return (
         // <> Ghost template.
-        <>
+        <div className="toggle-box">
           <input
             type="number"
             step="any"
+            placeholder={`Input ${symbol.symbol} volume`}
             onChange={(e) => setAmount(e, index)}
           />
-          <div className="price">{priceFormat(symbol.price)}</div>
-        </>
+          <div className="current-price">{priceFormat(symbol.price)}</div>
+        </div>
       );
     }
     return null;
