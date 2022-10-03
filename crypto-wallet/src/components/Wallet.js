@@ -113,7 +113,6 @@ export default function Wallet() {
   const togglePairInfo = (symbol, index) => {
     if (symbol.select) {
       return (
-        // <> Ghost template.
         <div className="toggle-box">
           <input
             type="number"
@@ -142,6 +141,7 @@ export default function Wallet() {
       <ul>
         {filteredResults.map((symbol, index) => (
           <li className="symbol-table" key={symbol.symbol}>
+            {/* TODO: fix the tick button to whole row. */}
             <input type="checkbox" onClick={(e) => selectRow(index)} />
             <div className="name">{symbol.symbol.replace("USDT", "")}</div>
             {/* If else return html */}
