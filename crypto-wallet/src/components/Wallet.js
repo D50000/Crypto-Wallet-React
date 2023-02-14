@@ -20,6 +20,7 @@ const SymbolFeatureContainer = styled.div`
       border: solid 1px;
       border-radius: 20px;
       align-items: center;
+      cursor: pointer;
 
       > .name {
         width: 35%;
@@ -57,7 +58,7 @@ export default function Wallet() {
         setFilteredResults(usdPairs);
       })
     );
-  }, []); // Give [] for initial.
+  }, []); // Give [] for initial. (Independencies Array)
 
   /**
    * Match a single character present in the list below [\wusdt].
@@ -110,23 +111,6 @@ export default function Wallet() {
     return Number.parseFloat(x).toFixed(2) + " USDT";
   };
 
-  const togglePairInfo = (symbol, index) => {
-    if (symbol.select) {
-      return (
-        <div className="toggle-box">
-          <input
-            type="number"
-            step="any"
-            placeholder={`Input ${symbol.symbol} volume`}
-            onChange={(e) => setAmount(e, index)}
-          />
-          <div className="current-price">{priceFormat(symbol.price)}</div>
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
     <SymbolFeatureContainer>
       <TextField
@@ -140,12 +124,29 @@ export default function Wallet() {
       <ButtonBar filteredResults={filteredResults}></ButtonBar>
       <ul>
         {filteredResults.map((symbol, index) => (
-          <li className="symbol-table" key={symbol.symbol}>
-            {/* TODO: fix the tick button to whole row. */}
-            <input type="checkbox" onClick={(e) => selectRow(index)} />
+          <li
+            className="symbol-table"
+            key={symbol.symbol}
+            onClick={(e) => selectRow(index)}
+          >
+            <input
+              type="checkbox"
+              readOnly
+              checked={filteredResults[index].select}
+            />
             <div className="name">{symbol.symbol.replace("USDT", "")}</div>
             {/* If else return html */}
-            {togglePairInfo(symbol, index)}
+            {filteredResults[index].select && (
+              <div className="toggle-box" onClick={(e) => e.stopPropagation()}>
+                <input
+                  type="number"
+                  step="any"
+                  placeholder={`Input ${symbol.symbol} volume`}
+                  onChange={(e) => setAmount(e, index)}
+                />
+                <div className="current-price">{priceFormat(symbol.price)}</div>
+              </div>
+            )}
           </li>
         ))}
       </ul>
