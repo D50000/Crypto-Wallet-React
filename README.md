@@ -12,7 +12,7 @@ This project is create by `Create React App`.
 - loading save data
 - style library: npm install @mui/base
   - ~~buttons bar~~
-  - ~~checkbox~~ fix the tick button to whole row.
+  - ~~checkbox, the tick button need to bind with the whole row. e.stopPropagation()~~
   - ~~search bar~~
   - ~~symbols layout ui/li~~
 - chart library: https://git.hust.cc/echarts-for-react/
