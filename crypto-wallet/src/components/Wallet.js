@@ -36,8 +36,13 @@ const SymbolFeatureContainer = styled.div`
   }
 
   .search-bar {
-    width: 100%;
-    margin: 10px 0;
+    width: 50%;
+    margin: 15px 0;
+
+    input {
+      font-size: 36px;
+      font-weight: bold;
+    }
   }
 `;
 
@@ -55,8 +60,9 @@ export default function Wallet() {
           symbol: pair.symbol.replace("USDT", ""),
           amount: 0,
         }));
-        setSymbolList(usdPairs);
-        setFilteredResults(usdPairs);
+        const newUsdPars = applyLocalStorageData(usdPairs);
+        setSymbolList(newUsdPars);
+        setFilteredResults(newUsdPars);
       })
     );
   }, []); // Give [] for initial. (Independencies Array)
@@ -69,6 +75,17 @@ export default function Wallet() {
   const filterTheUsdt = (list) => {
     const usdRegex = new RegExp(`(USDT)$`, "i");
     return list.filter((pair) => pair.symbol.match(usdRegex));
+  };
+
+  const applyLocalStorageData = (usdPars) => {
+    const newUsdPars = [...usdPars];
+    const storageDetail = JSON.parse(localStorage.getItem("walletSnapshot"));
+    storageDetail !== null &&
+      storageDetail.forEach((storageData) => {
+        newUsdPars[storageData.id].select = storageData.select;
+        newUsdPars[storageData.id].amount = storageData.amount;
+      });
+    return newUsdPars;
   };
 
   /**
@@ -95,17 +112,20 @@ export default function Wallet() {
    *
    * ps: If just specific change the some key/value it will still be the same object.
    */
-  const selectRow = (index) => {
+  const selectRow = (id) => {
     let updatePair = [...filteredResults];
-    updatePair[index].select = !updatePair[index].select;
+    updatePair[id].select = !updatePair[id].select;
     setFilteredResults(updatePair);
   };
 
-  const setAmount = (e, index) => {
+  const setAmount = (e, id) => {
     const inputAmount = e.target.value;
-    let updatePair = [...filteredResults];
-    updatePair[index].amount = inputAmount;
-    setFilteredResults(updatePair);
+    let updateFilteredResults = [...filteredResults];
+    updateFilteredResults[id].amount = inputAmount;
+    setFilteredResults(updateFilteredResults);
+    let updateSymbolList = [...symbolList];
+    updateSymbolList[id].amount = inputAmount;
+    setSymbolList(updateSymbolList);
   };
 
   const priceFormat = (x) => {
@@ -122,7 +142,7 @@ export default function Wallet() {
         className="search-bar"
         onChange={(e) => searchHandler(e)}
       />
-      <ButtonBar filteredResults={filteredResults}></ButtonBar>
+      <ButtonBar symbolList={symbolList}></ButtonBar>
       <ul>
         {filteredResults.map((symbol, index) => (
           <li
@@ -144,8 +164,9 @@ export default function Wallet() {
                   onClick={(e) => e.stopPropagation()}
                   type="number"
                   step="any"
+                  value={symbol.amount}
                   placeholder={`Input ${symbol.symbol} volume`}
-                  onChange={(e) => setAmount(e, index)}
+                  onChange={(e) => setAmount(e, symbol.id)}
                 />
               )}
             </div>

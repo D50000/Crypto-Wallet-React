@@ -12,9 +12,11 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const saveWallet = (filteredResults) => {
+const saveWallet = (symbolList) => {
   console.log("Save");
-  const existPairs = filteredResults.filter((pair) => pair.amount > 0);
+  const existPairs = symbolList.filter(
+    (pair) => pair.amount > 0 && pair.select
+  );
   localStorage.setItem("walletSnapshot", JSON.stringify(existPairs));
 };
 
@@ -31,10 +33,7 @@ const refreshData = () => {
 export default function ButtonBar(props) {
   return (
     <ButtonContainer>
-      <Button
-        variant="contained"
-        onClick={(e) => saveWallet(props.filteredResults)}
-      >
+      <Button variant="contained" onClick={(e) => saveWallet(props.symbolList)}>
         Save
       </Button>
       <Button variant="contained" onClick={(e) => cleanWallet()}>
