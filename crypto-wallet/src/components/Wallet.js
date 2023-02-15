@@ -52,20 +52,24 @@ export default function Wallet() {
 
   useEffect(() => {
     fetch("https://api.binance.com/api/v3/ticker/price").then((res) =>
-      res.json().then((data) => {
-        const usdPairs = filterTheUsdt(data).map((pair, index) => ({
-          ...pair,
-          id: index,
-          select: false,
-          symbol: pair.symbol.replace("USDT", ""),
-          amount: 0,
-        }));
-        const newUsdPars = applyLocalStorageData(usdPairs);
-        setSymbolList(newUsdPars);
-        setFilteredResults(newUsdPars);
-      })
+      res
+        .json()
+        .then((data) => {
+          return filterTheUsdt(data).map((pair, index) => ({
+            ...pair,
+            id: index,
+            select: false,
+            symbol: pair.symbol.replace("USDT", ""),
+            amount: 0,
+          }));
+        })
+        .then((usdPairs) => {
+          const newUsdPars = applyLocalStorageData(usdPairs);
+          setSymbolList(newUsdPars);
+          setFilteredResults(newUsdPars);
+        })
     );
-  }, []); // Give [] for initial. (Independencies Array)
+  }, []); // Give [] for initial. (Dependencies Array)
 
   /**
    * Match a single character present in the list below [\wusdt].
@@ -132,6 +136,16 @@ export default function Wallet() {
     return Number.parseFloat(x).toFixed(2) + " USDT";
   };
 
+  const cleanData = () => {
+    let updateSymbolList = [...symbolList];
+    updateSymbolList.forEach((pair) => {
+      pair.amount = 0;
+      pair.select = false;
+    });
+    setSymbolList(updateSymbolList);
+    setFilteredResults(updateSymbolList);
+  };
+
   return (
     <SymbolFeatureContainer>
       <TextField
@@ -142,7 +156,7 @@ export default function Wallet() {
         className="search-bar"
         onChange={(e) => searchHandler(e)}
       />
-      <ButtonBar symbolList={symbolList}></ButtonBar>
+      <ButtonBar symbolList={symbolList} cleanData={cleanData}></ButtonBar>
       <ul>
         {filteredResults.map((symbol, index) => (
           <li
