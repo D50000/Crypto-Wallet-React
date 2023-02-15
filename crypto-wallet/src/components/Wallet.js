@@ -16,9 +16,10 @@ const SymbolFeatureContainer = styled.div`
     li.symbol-table {
       display: flex;
       height: 45px;
+      margin-top: 5px;
       padding: 0px 0px 0px 15px;
       border: solid 1px;
-      border-radius: 20px;
+      border-radius: 8px;
       align-items: center;
       cursor: pointer;
 
@@ -135,18 +136,19 @@ export default function Wallet() {
               checked={filteredResults[index].select}
             />
             <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-            {/* If else return html */}
-            {filteredResults[index].select && (
-              <div className="toggle-box" onClick={(e) => e.stopPropagation()}>
+            {/* TODO: need more convenience UI */}
+            <div className="toggle-box">
+              <div className="current-price">{priceFormat(symbol.price)}</div>
+              {filteredResults[index].select && (
                 <input
+                  onClick={(e) => e.stopPropagation()}
                   type="number"
                   step="any"
                   placeholder={`Input ${symbol.symbol} volume`}
                   onChange={(e) => setAmount(e, index)}
                 />
-                <div className="current-price">{priceFormat(symbol.price)}</div>
-              </div>
-            )}
+              )}
+            </div>
           </li>
         ))}
       </ul>
