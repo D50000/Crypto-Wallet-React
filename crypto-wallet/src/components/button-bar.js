@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Button from "@mui/material/Button";
 
 const ButtonContainer = styled.div`
-  width: 50vw;
-  margin: 0 0 10px 0;
+  width: 80%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
 
@@ -14,7 +14,8 @@ const ButtonContainer = styled.div`
 
 const saveWallet = (filteredResults) => {
   console.log("Save");
-  localStorage.setItem("walletSnapshot", JSON.stringify(filteredResults));
+  const existPairs = filteredResults.filter((pair) => pair.amount > 0);
+  localStorage.setItem("walletSnapshot", JSON.stringify(existPairs));
 };
 
 const cleanWallet = () => {
