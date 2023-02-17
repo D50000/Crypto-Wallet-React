@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ReactECharts from "echarts-for-react";
 
 const ChartContainer = styled.div`
-  width: 80%;
+  width: 65%;
   height: 60vh;
 `;
 
@@ -54,30 +54,13 @@ export default function BalanceChart() {
     console.log("echarts is ready", echarts);
   }
 
-  function onChartClick(param, echarts) {
-    console.log(param, echarts);
-    setCount(count + 1);
-  }
-
-  function onChartLegendselectchanged(param, echarts) {
-    console.log(param, echarts);
-  }
-
   return (
     <ChartContainer>
-      <>
-        <ReactECharts
-          option={option}
-          style={{ height: 400 }}
-          onChartReady={onChartReady}
-          onEvents={{
-            click: onChartClick,
-            legendselectchanged: onChartLegendselectchanged,
-          }}
-        />
-        <div>Click Count: {count}</div>
-        <div>Open console, see the log detail.</div>
-      </>
+      <ReactECharts
+        option={option}
+        style={{ height: 500 }}
+        onChartReady={onChartReady}
+      />
     </ChartContainer>
   );
 }

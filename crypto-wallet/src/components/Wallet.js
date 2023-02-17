@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import BalanceChart from "./balance-chart";
 import ButtonBar from "./button-bar";
 
 import styled from "styled-components";
@@ -147,46 +148,49 @@ export default function Wallet() {
   };
 
   return (
-    <SymbolFeatureContainer>
-      <TextField
-        id="standard-search"
-        label="Search for Crypto currencies ..."
-        type="search"
-        variant="standard"
-        className="search-bar"
-        onChange={(e) => searchHandler(e)}
-      />
-      <ButtonBar symbolList={symbolList} cleanData={cleanData}></ButtonBar>
-      <ul>
-        {filteredResults.map((symbol, index) => (
-          <li
-            className="symbol-table"
-            key={symbol.symbol}
-            onClick={(e) => selectRow(index)}
-          >
-            <input
-              type="checkbox"
-              readOnly
-              checked={filteredResults[index].select}
-            />
-            <div className="name">{symbol.symbol.replace("USDT", "")}</div>
-            {/* TODO: need more convenience UI */}
-            <div className="toggle-box">
-              <div className="current-price">{priceFormat(symbol.price)}</div>
-              {filteredResults[index].select && (
-                <input
-                  onClick={(e) => e.stopPropagation()}
-                  type="number"
-                  step="any"
-                  value={symbol.amount}
-                  placeholder={`Input ${symbol.symbol} volume`}
-                  onChange={(e) => setAmount(e, symbol.id)}
-                />
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </SymbolFeatureContainer>
+    <>
+      <BalanceChart></BalanceChart>
+      <SymbolFeatureContainer>
+        <TextField
+          id="standard-search"
+          label="Search for Crypto currencies ..."
+          type="search"
+          variant="standard"
+          className="search-bar"
+          onChange={(e) => searchHandler(e)}
+        />
+        <ButtonBar symbolList={symbolList} cleanData={cleanData}></ButtonBar>
+        <ul>
+          {filteredResults.map((symbol, index) => (
+            <li
+              className="symbol-table"
+              key={symbol.symbol}
+              onClick={(e) => selectRow(index)}
+            >
+              <input
+                type="checkbox"
+                readOnly
+                checked={filteredResults[index].select}
+              />
+              <div className="name">{symbol.symbol.replace("USDT", "")}</div>
+              {/* TODO: need more convenience UI */}
+              <div className="toggle-box">
+                <div className="current-price">{priceFormat(symbol.price)}</div>
+                {filteredResults[index].select && (
+                  <input
+                    onClick={(e) => e.stopPropagation()}
+                    type="number"
+                    step="any"
+                    value={symbol.amount}
+                    placeholder={`Input ${symbol.symbol} volume`}
+                    onChange={(e) => setAmount(e, symbol.id)}
+                  />
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </SymbolFeatureContainer>
+    </>
   );
 }
