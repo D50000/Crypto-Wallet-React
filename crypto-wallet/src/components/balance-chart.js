@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
 import ReactECharts from "echarts-for-react";
@@ -8,11 +8,12 @@ const ChartContainer = styled.div`
   height: 60vh;
 `;
 
-export default function BalanceChart() {
+export default function BalanceChart(props) {
+  const assetData = props.symbolList.filter((pair) => pair.select);
   const option = {
     title: {
-      text: "某站点用户访问来源",
-      subtext: "纯属虚构",
+      text: "Asset Distributed Detail",
+      subtext: "Unit: $USDT (amount * price)",
       x: "center",
     },
     tooltip: {
@@ -22,21 +23,20 @@ export default function BalanceChart() {
     legend: {
       orient: "vertical",
       left: "left",
-      data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
+      data: assetData.map((pair) => pair.symbol),
     },
     series: [
       {
-        name: "访问来源",
+        name: "Total Value",
         type: "pie",
         radius: "55%",
         center: ["50%", "60%"],
-        data: [
-          { value: 335, name: "直接访问" },
-          { value: 310, name: "邮件营销" },
-          { value: 234, name: "联盟广告" },
-          { value: 135, name: "视频广告" },
-          { value: 1548, name: "搜索引擎" },
-        ],
+        data: assetData.map((pair) => {
+          return {
+            name: pair.symbol,
+            value: (pair.amount * pair.price).toFixed(4),
+          };
+        }),
         itemStyle: {
           emphasis: {
             shadowBlur: 10,
@@ -47,8 +47,6 @@ export default function BalanceChart() {
       },
     ],
   };
-
-  const [count, setCount] = useState(0);
 
   function onChartReady(echarts) {
     console.log("echarts is ready", echarts);

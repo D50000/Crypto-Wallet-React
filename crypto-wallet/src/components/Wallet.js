@@ -12,7 +12,7 @@ const SymbolFeatureContainer = styled.div`
   ul {
     list-style-type: none;
     padding: 0;
-    margin: 15px;
+    margin: 20px 15px 15px 15px;
 
     li.symbol-table {
       display: flex;
@@ -25,12 +25,12 @@ const SymbolFeatureContainer = styled.div`
       cursor: pointer;
 
       > .name {
-        width: 35%;
+        width: 30%;
       }
 
       > div.toggle-box {
         display: flex;
-        width: 55%;
+        width: 62%;
         justify-content: space-between;
       }
     }
@@ -149,7 +149,7 @@ export default function Wallet() {
 
   return (
     <>
-      <BalanceChart></BalanceChart>
+      <BalanceChart symbolList={symbolList}></BalanceChart>
       <SymbolFeatureContainer>
         <TextField
           id="standard-search"

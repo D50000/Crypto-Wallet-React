@@ -1,6 +1,6 @@
 # Crypto-Wallet-React
 
-This project is create by `Create React App`.
+This project is developed by `Create React App`.
 
 ### Notes:
 
@@ -9,11 +9,13 @@ This project is create by `Create React App`.
 
 #### TODO:
 
-- loading save data
+✅ loading save data  
+✅ chart library: https://git.hust.cc/echarts-for-react/  
+✅ RWD (Desktop, Mobile, tablet)
+
 - style library: npm install @mui/base
   - ~~buttons bar~~
   - ~~checkbox, the tick button need to bind with the whole row. e.stopPropagation()~~
   - ~~search bar~~
   - ~~symbols layout ui/li~~
-- chart library: https://git.hust.cc/echarts-for-react/
-- RWD
+  - Add 'toastr'
