@@ -138,6 +138,8 @@ export default function Wallet() {
   };
 
   const cleanData = () => {
+    console.log("Clear");
+    localStorage.removeItem("walletSnapshot");
     let updateSymbolList = [...symbolList];
     updateSymbolList.forEach((pair) => {
       pair.amount = 0;
@@ -159,7 +161,10 @@ export default function Wallet() {
           className="search-bar"
           onChange={(e) => searchHandler(e)}
         />
-        <ButtonBar symbolList={symbolList} cleanData={cleanData}></ButtonBar>
+        <ButtonBar
+          symbolList={symbolList}
+          handleCleanData={cleanData}
+        ></ButtonBar>
         <ul>
           {filteredResults.map((symbol, index) => (
             <li

@@ -20,12 +20,6 @@ const saveWallet = (symbolList) => {
   localStorage.setItem("walletSnapshot", JSON.stringify(existPairs));
 };
 
-const cleanWallet = (cleanData) => {
-  console.log("Clear");
-  localStorage.removeItem("walletSnapshot");
-  cleanData();
-};
-
 const refreshData = () => {
   console.log("Refresh");
   window.location.reload(false);
@@ -37,7 +31,7 @@ export default function ButtonBar(props) {
       <Button variant="contained" onClick={(e) => saveWallet(props.symbolList)}>
         Save
       </Button>
-      <Button variant="contained" onClick={(e) => cleanWallet(props.cleanData)}>
+      <Button variant="contained" onClick={props.handleCleanData}>
         Clear
       </Button>
       <Button variant="contained" onClick={(e) => refreshData()}>
